@@ -1,20 +1,20 @@
-package org.criteoexam.excepions;
+package org.example.exceptions;
 
-public class InvalidCampaignRequestException extends RuntimeException {
+public class InvalidStudentRequestException extends RuntimeException {
 
     private final String message;
 
-    public InvalidCampaignRequestException(Exception e) {
+    public InvalidStudentRequestException(Exception e) {
         super(e);
         this.message = e.getMessage();
     }
 
-    public InvalidCampaignRequestException(String msg, Exception e) {
+    public InvalidStudentRequestException(String msg, Exception e) {
         super(e);
         this.message = msg;
     }
 
-    public InvalidCampaignRequestException(String msg) {
+    public InvalidStudentRequestException(String msg) {
         this.message = msg;
     }
 

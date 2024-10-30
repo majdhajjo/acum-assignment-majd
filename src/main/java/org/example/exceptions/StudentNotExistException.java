@@ -1,19 +1,19 @@
-package org.player.exceptions;
+package org.example.exceptions;
 
-public class NoPlayerDataException extends RuntimeException {
+public class StudentNotExistException extends RuntimeException {
     private final String message;
 
-    public NoPlayerDataException(Exception e) {
+    public StudentNotExistException(Exception e) {
         super(e);
         this.message = e.getMessage();
     }
 
-    public NoPlayerDataException(String msg, Exception e) {
+    public StudentNotExistException(String msg, Exception e) {
         super(e);
         this.message = msg;
     }
 
-    public NoPlayerDataException(String msg) {
+    public StudentNotExistException(String msg) {
         this.message = msg;
     }
 

@@ -1,31 +1,41 @@
-package org.player.domain;
+package org.example.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Builder
+import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.List;
+
 @Data
-public class Player {
-    private String playerID;
-    private String birthYear;
-    private String birthMonth;
-    private String birthDay;
-    private String birthCountry;
-    private String deathYear;
-    private String deathMonth;
-    private String deathDay;
-    private String deathCountry;
-    private String deathState;
-    private String deathCity;
-    private String nameFirst;
-    private String nameLast;
-    private String nameGiven;
-    private String weight;
-    private String height;
-    private String bats;
-    private String thr;
-    private String debut;
-    private String finalGame;
-    private String retroID;
-    private String bbrefID;
+@Entity
+@Table(name = "students", schema = "education_schema")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Student implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "student_id")
+    private Integer studentID;
+    private String name;
+    private String email;
+    private String address;
+    private String phone;
+    private String major;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp enrollmentDate;
+
+    @ManyToMany
+    @JoinTable(
+            name = "student_courses",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private List<Course> courses;
+
 }

@@ -1,4 +1,4 @@
-package org.player.domain;
+package org.example.domain;
 
 import lombok.Builder;
 import lombok.Data;

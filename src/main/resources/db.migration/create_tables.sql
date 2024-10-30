@@ -1,22 +1,35 @@
-create table product (
-    product_serial_number VARCHAR(50) PRIMARY KEY,
-    category VARCHAR(50) NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    price DECIMAL(10,2) NOT NULL,
-    INDEX idx_category (category)
+CREATE TABLE students (
+    student_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    address VARCHAR(255),
+    phone VARCHAR(20),
+    major VARCHAR(100),
+    enrollment_date DATE NOT NULL
 );
 
-CREATE TABLE campaign (
-    campaign_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    campaign_name VARCHAR(255) NOT NULL,
-    start_date DATE NOT NULL,
-    bid DECIMAL(10, 2) NOT NULL
+CREATE TABLE courses (
+    course_id INT PRIMARY KEY AUTO_INCREMENT,
+    course_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    hours VARCHAR(10),
+    max_size INT
 );
 
-CREATE TABLE campaign_product (
-    campaign_id INT,
-    product_serial_number VARCHAR(50),
-    PRIMARY KEY (campaign_id, product_serial_number),
-    FOREIGN KEY (campaign_id) REFERENCES campaign(campaign_id),
-    FOREIGN KEY (product_serial_number) REFERENCES product(product_serial_number)
+CREATE TABLE lectures (
+    lecture_id INT PRIMARY KEY AUTO_INCREMENT,
+    lecture_name VARCHAR(255) NOT NULL,
+    course_id INT,
+    study VARCHAR(100),
+    lecture_time TIME,
+    day_of_week VARCHAR(10),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+
+CREATE TABLE student_courses (
+    student_id INT NOT NULL,
+    course_id INT NOT NULL,
+    PRIMARY KEY (student_id, course_id),
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
 );

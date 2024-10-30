@@ -1,13 +1,18 @@
 package org.example.service;
 
-import org.player.domain.Player;
+import org.example.domain.Student;
+import org.example.domain.StudentRequest;
 
-import java.io.IOException;
 import java.util.List;
 
-public interface PlayerService {
+public interface StudentService {
 
-    List<Player> getAllPlayers() throws IOException;
+    Student getStudentByID(Integer studentId);
 
-    Player getPlayerByID(String playerID) throws IOException;
+
+    Integer addStudent(StudentRequest request);
+
+    Integer updateStudentInfo(Integer studentID, StudentRequest request);
+
+    List<Student> getAllStudents();
 }

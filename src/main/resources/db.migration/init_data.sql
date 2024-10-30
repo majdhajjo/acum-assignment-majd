@@ -1,27 +1,30 @@
-insert into product values(UUID(),'category1','product1',RAND()*(100-1)+1)
-,(UUID(),'category1','product2',RAND()*(100-1)+1)
-,(UUID(),'category1','product3',RAND()*(100-1)+1)
-,(UUID(),'category1','product4',RAND()*(100-1)+1)
-,(UUID(),'category2','product5',RAND()*(100-1)+1)
-,(UUID(),'category2','product6',RAND()*(100-1)+1)
-,(UUID(),'category2','product7',RAND()*(100-1)+1)
-,(UUID(),'category2','product8',RAND()*(100-1)+1)
-,(UUID(),'category2','product9',RAND()*(100-1)+1)
-,(UUID(),'category2','product10',RAND()*(100-1)+1)
-,(UUID(),'category2','product11',RAND()*(100-1)+1)
-,(UUID(),'category2','product12',RAND()*(100-1)+1)
-,(UUID(),'category2','product13',RAND()*(100-1)+1)
-,(UUID(),'category2','product14',RAND()*(100-1)+1)
-,(UUID(),'category2','product15',RAND()*(100-1)+1)
-,(UUID(),'category3','product16',RAND()*(100-1)+1)
-,(UUID(),'category3','product17',RAND()*(100-1)+1)
-,(UUID(),'category3','product18',RAND()*(100-1)+1)
-,(UUID(),'category3','product19',RAND()*(100-1)+1)
-,(UUID(),'category3','product20',RAND()*(100-1)+1)
-,(UUID(),'category4','product21',RAND()*(100-1)+1)
-,(UUID(),'category4','product22',RAND()*(100-1)+1)
-,(UUID(),'category4','product23',RAND()*(100-1)+1)
-,(UUID(),'category4','product24',RAND()*(100-1)+1)
-,(UUID(),'category4','product25',RAND()*(100-1)+1)
-,(UUID(),'category4','product26',RAND()*(100-1)+1)
+INSERT INTO students (name, email, address, phone, major, enrollment_date) VALUES
+    ('Alex Smith', 'alex@example.com', '123 St', '555-1234', 'Computer Science', '2024-09-01'),
+    ('Ameer H', 'ameer@example.com', '456 St', '555-5678', 'Mathematics', '2024-09-02'),
+    ('Cristiano Ronaldo', 'ronaldo@example.com', '789 St', '555-8765', 'Biology', '2024-09-03'),
+    ('Rami D', 'rami@example.com', '321 St', '555-4321', 'Chemistry', '2024-09-04'),
+    ('Jude B', 'jude@example.com', '654 St', '555-9876', 'Physics', '2024-09-05');
+
+
+INSERT INTO courses (course_name, description, hours, max_size) VALUES
+    ('Computer Science', 'An introduction to the fundamentals of computer science.', '3', 30),
+    ('Calculus I', 'A study of limits, derivatives, and integrals.', '4', 25),
+    ('Biology 101', 'An overview of basic biological concepts.', '3', 35),
+    ('General Chemistry', 'An introduction to chemical principles and reactions.', '4', 30),
+    ('Physics I', 'An introduction to classical mechanics.', '3', 30);
+
+INSERT INTO lectures (lecture_name, course_id, study, lecture_time, day_of_week) VALUES
+    ('Introduction to Computer Science - Lecture 1', (SELECT course_id FROM courses LIMIT 1), 'Computer Science', '10:00:00', 'Monday'),
+    ('Calculus I - Lecture 1', (SELECT course_id FROM courses LIMIT 1 OFFSET 1), 'Mathematics', '11:00:00', 'Tuesday'),
+    ('Biology 101 - Lecture 1', (SELECT course_id FROM courses LIMIT 1 OFFSET 2), 'Biology', '09:00:00', 'Wednesday'),
+    ('General Chemistry - Lecture 1', (SELECT course_id FROM courses LIMIT 1 OFFSET 3), 'Chemistry', '01:00:00', 'Thursday'),
+    ('Physics I - Lecture 1', (SELECT course_id FROM courses LIMIT 1 OFFSET 4), 'Physics', '03:00:00', 'Friday');
+
+
+INSERT INTO student_courses (student_id, course_id) VALUES
+((SELECT student_id FROM students WHERE name = 'Alex Smith' LIMIT 1), (SELECT course_id FROM courses WHERE course_name = 'Computer Science' LIMIT 1)),
+((SELECT student_id FROM students WHERE name = 'Ameer H' LIMIT 1), (SELECT course_id FROM courses WHERE course_name = 'Calculus I' LIMIT 1)),
+((SELECT student_id FROM students WHERE name = 'Cristiano Ronaldo' LIMIT 1), (SELECT course_id FROM courses WHERE course_name = 'Biology 101' LIMIT 1)),
+((SELECT student_id FROM students WHERE name = 'Rami D' LIMIT 1), (SELECT course_id FROM courses WHERE course_name = 'General Chemistry' LIMIT 1)),
+((SELECT student_id FROM students WHERE name = 'Jude B' LIMIT 1), (SELECT course_id FROM courses WHERE course_name = 'Physics I' LIMIT 1));
 

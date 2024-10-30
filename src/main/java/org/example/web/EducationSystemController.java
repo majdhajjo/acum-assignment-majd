@@ -1,7 +1,7 @@
 package org.example.web;
 
 import lombok.AllArgsConstructor;
-import org.example.domain.Course;
+import org.example.domain.CourseResponse;
 import org.example.domain.ErrMsg;
 import org.example.domain.Student;
 import org.example.domain.StudentRequest;
@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/education-system")
 @AllArgsConstructor
-public class EducationSystemResource {
+public class EducationSystemController {
 
 
     @Autowired
@@ -30,7 +30,7 @@ public class EducationSystemResource {
      * first endpoint of getting student's data
      */
     @GetMapping("/student/{student_id}")
-    public ResponseEntity<Object> getStudent(@PathVariable("student_id") String studentID) {
+    public ResponseEntity<Object> getStudent(@PathVariable("student_id") Integer studentID) {
         try {
             Student student = studentService.getStudentByID(studentID);
             return ResponseEntity.ok(student);
@@ -47,8 +47,8 @@ public class EducationSystemResource {
     @PostMapping("/new/student")
     public ResponseEntity<Object> addStudent(@RequestBody StudentRequest request) {
         try {
-            int res = studentService.addStudent(request);
-            return ResponseEntity.ok(res);
+            Integer res = studentService.addStudent(request);
+            return ResponseEntity.ok("new student has been added. studentId:" + res);
         } catch (InvalidStudentRequestException e) {
             return ResponseEntity.badRequest().body(ErrMsg.builder().message(e.getMessage()).build());
         } catch (Exception e) {
@@ -60,10 +60,10 @@ public class EducationSystemResource {
      * third endpoint of updating student's data
      */
     @PutMapping("/student/{student_id}/edit")
-    public ResponseEntity<Object> editStudentInfo(@PathVariable("student_id") String studentID, @RequestBody StudentRequest request) {
+    public ResponseEntity<Object> editStudentInfo(@PathVariable("student_id") Integer studentID, @RequestBody StudentRequest request) {
         try {
             Integer res = studentService.updateStudentInfo(studentID, request);
-            return ResponseEntity.ok(res);
+            return ResponseEntity.ok("student info has been updated. studentId:" + res);
         } catch (InvalidStudentRequestException e) {
             return ResponseEntity.badRequest().body(ErrMsg.builder().message(e.getMessage()).build());
         } catch (Exception e) {
@@ -94,7 +94,7 @@ public class EducationSystemResource {
     @GetMapping("/courses")
     public ResponseEntity<Object> getAllCourses() {
         try {
-            List<Course> allCourses = courseService.getAllCourses();
+            List<CourseResponse> allCourses = courseService.getAllCourses();
             if (allCourses.isEmpty()) {
                 return ResponseEntity.notFound().build();
             }
