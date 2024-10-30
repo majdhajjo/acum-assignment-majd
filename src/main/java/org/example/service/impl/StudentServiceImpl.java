@@ -50,7 +50,7 @@ public class StudentServiceImpl implements StudentService {
         try {
             res = studentRepository.save(student);
         } catch (DataIntegrityViolationException ex) {
-            log.error("failed to add student. request: "+request);
+            log.error("failed to add student. request: " + request);
             throw new InvalidStudentRequestException("bad request: violation exception");
         }
         return res.getStudentID();
@@ -67,7 +67,7 @@ public class StudentServiceImpl implements StudentService {
                     request.getPhone(),
                     request.getMajor());
         } catch (DataIntegrityViolationException ex) {
-            log.error("failed to update info. request: "+request);
+            log.error("failed to update info. request: " + request);
             throw new InvalidStudentRequestException("bad request: violation exception");
         }
         return studentID;

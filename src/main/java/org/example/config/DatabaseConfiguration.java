@@ -12,18 +12,17 @@ import javax.sql.DataSource;
 import static com.wix.mysql.EmbeddedMysql.anEmbeddedMysql;
 import static com.wix.mysql.ScriptResolver.classPathScript;
 import static com.wix.mysql.distribution.Version.v5_7_latest;
-import static com.wix.mysql.distribution.Version.v8_latest;
 
 @Configuration
-@EnableJpaRepositories({ "org.example.repository" })
+@EnableJpaRepositories({"org.example.repository"})
 @EnableTransactionManagement
 public class DatabaseConfiguration {
 
     @Bean
-    public DataSource dataSource(){
-                EmbeddedMysql mysqld = anEmbeddedMysql(v5_7_latest)
+    public DataSource dataSource() {
+        EmbeddedMysql mysqld = anEmbeddedMysql(v5_7_latest)
                 .addSchema("education_schema", classPathScript("db.migration/create_tables.sql")
-                        ,classPathScript("db.migration/init_data.sql"))
+                        , classPathScript("db.migration/init_data.sql"))
                 .start();
 
         DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
